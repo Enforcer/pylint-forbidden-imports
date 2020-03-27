@@ -1,0 +1,5 @@
+[MASTER]
+disable=bad-continuation,
+        missing-module-docstring,
+        duplicate-code
+
