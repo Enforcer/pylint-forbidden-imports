@@ -4,7 +4,7 @@ This plugin inspects import statements for configured packages. Both checkers ar
 
 Status
 ======
-This emerged as a standalone experimentation during development of `the Clean Architecture example project`_
+This emerged as a standalone experimentation during development of `the Clean Architecture example project`_ and it has been mostly tested against it. If you are willing to try it out against your project and have some suggestions - they are welcomed! As well as any code contributions!
 
 Why?
 ====
