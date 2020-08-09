@@ -1,4 +1,5 @@
 import warnings
+from collections import defaultdict
 from typing import Optional, Set, Union
 
 from astroid import scoped_nodes
@@ -40,6 +41,10 @@ class EncapsulatedModules(BaseChecker):
             "encapsulated-modules",
             {"default": (), "type": "csv", "metavar": "<modules>", "help": "No help!"},
         ),
+        (
+            "encapsulated-modules-friendships",
+            {"default": (), "type": "csv", "metavar": "<modules>", "help": "No help!"},
+        ),
     )
 
     priority = -1
@@ -47,10 +52,14 @@ class EncapsulatedModules(BaseChecker):
     def __init__(self, linter=None) -> None:
         super().__init__(linter)
         self._encapsulated_modules: Set[str] = set()
+        self._encapsulated_modules_friendships: Dict[str, Set[str]] = defaultdict(set)
         self._current_package: str = ""
 
     def open(self) -> None:
         self._encapsulated_modules = set(self.config.encapsulated_modules)
+        for friendship in self.config.encapsulated_modules_friendships:
+            friend, encapsulated = friendship.split("->")
+            self._encapsulated_modules_friendships[friend].add(encapsulated)
 
     def visit_import(self, node: Import) -> None:
         """Check if we do not import submodules outside a protected package.
@@ -95,6 +104,11 @@ class EncapsulatedModules(BaseChecker):
             module_name
         )
         if not closest_protected_parent_module:
+            return
+
+        modules_allowed_for_current = self._encapsulated_modules_friendships[self._current_package]
+        if closest_protected_parent_module in modules_allowed_for_current:
+            # self._current_package is allowed, they are friends <3
             return
 
         try:
