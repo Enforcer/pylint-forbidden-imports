@@ -9,6 +9,7 @@ setup(
     version="1.0.0",
     description="Plugin for PyLint that checks if we import from permitted modules",
     long_description=long_description,
+    long_description_content_type="text/x-rst",
     author="Sebastian Buczyński",
     url="https://github.com/Enforcer/pylint_forbidden_imports",
     download_url="https://github.com/Enforcer/pylint_forbidden_imports/archive/1.0.0.tar.gz",
