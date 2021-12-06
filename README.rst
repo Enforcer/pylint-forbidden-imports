@@ -33,11 +33,12 @@ Then, you have to configure the plugin. Example for `.pylintrc`::
                                  main->*,
                                  *->foundation,
 
-All settings are comma-separated. 
+All settings are comma-separated. They are explained below:
 
-`encapsulated-modules` - checks whether we import from it only things kept in top-level __init__.py.
-`encapsulated-modules-friendships` - allows for creating exceptions to that rule for "friend" packages.
-`allowed-modules-dependencies` - defines which packages are allowed to be imported from certain packages. Asterisk (*) is a wildcard - `main->*`  means main package can import anything while `*->foundation` means that any package can import from foundation.
+* `encapsulated-modules` - checks whether we import from it only things kept in top-level __init__.py.
+* `encapsulated-modules-friendships` - allows for creating exceptions to that rule for "friend" packages.
+* `allowed-modules-dependencies` - defines which packages are allowed to be imported from certain packages. Asterisk (*) is a wildcard - `main->*`  means main package can import anything while `*->foundation` means that any package can import from foundation.
+
 If a certain package does not appear at least once, no rules are enforced.
 
 Development
